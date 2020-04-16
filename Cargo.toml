@@ -1,0 +1,28 @@
+[package]
+name = "eucalyptus_sdk"
+version = "0.1.0"
+authors = ["Steve Jones <steve@iaascream.cloud>"]
+edition = "2018"
+
+[[bin]]
+name = "euca"
+path = "src/main.rs"
+
+[dependencies]
+clap = "2.33.0"
+env_logger = "0.7.1"
+rusoto_core = "0.43.0"
+tokio = "0.2"
+
+[dependencies.futures]
+version = "0.3"
+
+[dependencies.eucalyptus_sdk_euprop]
+version = "0.1.0"
+path = "services/euprop"
+default-features = false
+
+[dependencies.eucalyptus_sdk_euserv]
+version = "0.1.0"
+path = "services/euserv"
+default-features = false
