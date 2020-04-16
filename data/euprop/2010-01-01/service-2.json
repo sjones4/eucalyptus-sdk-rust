@@ -1,0 +1,184 @@
+{
+  "version": "2.0",
+  "metadata": {
+    "apiVersion": "2010-01-01",
+    "endpointPrefix": "properties",
+    "protocol": "query",
+    "serviceAbbreviation": "Eucalyptus Properties",
+    "serviceFullName": "Eucalyptus Cloud Properties Service",
+    "serviceId": "euprop",
+    "signatureVersion": "v4",
+    "uid": "euprop-2010-01-01",
+    "xmlNamespace": "http://msgs.eucalyptus.com/4.4.5"
+  },
+  "operations": {
+    "DescribeProperties": {
+      "name": "DescribeProperties",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "DescribePropertiesRequest"
+      },
+      "output": {
+        "shape": "DescribePropertiesResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "ModifyPropertyValue": {
+      "name": "ModifyPropertyValue",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "ModifyPropertyRequest"
+      },
+      "output": {
+        "shape": "ModifyPropertyResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        },
+        {
+          "shape": "ModifyPropertyException"
+        }
+      ]
+    }
+  },
+  "shapes": {
+    "Boolean": {
+      "type": "boolean"
+    },
+    "String": {
+      "type": "string"
+    },
+    "ModifyPropertyException": {
+      "type": "structure",
+      "members": {
+        "message": {
+          "shape": "String"
+        }
+      },
+      "error": {
+        "code": "ModifyPropertyValueType",
+        "httpStatusCode": 400
+      },
+      "exception": true
+    },
+    "ServiceFailureException": {
+      "type": "structure",
+      "members": {
+        "message": {
+          "shape": "serviceFailureExceptionMessage"
+        }
+      },
+      "error": {
+        "code": "ServiceFailure",
+        "httpStatusCode": 500
+      },
+      "exception": true
+    },
+    "serviceFailureExceptionMessage": {
+      "type": "string"
+    },
+    "PropertiesList": {
+      "type": "list",
+      "member": {
+        "shape": "Property",
+        "locationName": "item"
+      }
+    },
+    "Property": {
+      "type": "structure",
+      "members": {
+        "name": {
+          "shape": "String"
+        },
+        "value": {
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "defaultValue": {
+          "shape": "String"
+        },
+        "readOnly": {
+          "shape": "Boolean"
+        }
+      }
+    },
+    "PropertyPrefixListType": {
+      "type": "list",
+      "flattened": true,
+      "member": {
+        "shape": "PropertyPrefixType"
+      }
+    },
+    "PropertyPrefixType": {
+      "type": "string",
+      "max": 256,
+      "min": 1
+    },
+    "DescribePropertiesRequest": {
+      "type": "structure",
+      "members": {
+        "properties": {
+          "shape": "PropertyPrefixListType",
+          "locationName": "Property"
+        }
+      }
+    },
+    "DescribePropertiesResponse": {
+      "type": "structure",
+      "locationName": "DescribePropertiesResponseType",
+      "members": {
+        "properties": {
+          "shape": "PropertiesList"
+        }
+      }
+    },
+    "ModifyPropertyRequest": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members": {
+        "name": {
+          "shape": "String",
+          "locationName": "Name"
+        },
+        "value": {
+          "shape": "String",
+          "locationName": "Value"
+        },
+        "reset": {
+          "shape": "Boolean",
+          "locationName": "Reset"
+        }
+      }
+    },
+    "ModifyPropertyResponse": {
+      "type": "structure",
+      "locationName": "ModifyPropertyValueResponseType",
+      "members": {
+        "name": {
+          "shape": "String"
+        },
+        "value": {
+          "shape": "String"
+        },
+        "oldValue": {
+          "shape": "String"
+        }
+      }
+    }
+  }
+}

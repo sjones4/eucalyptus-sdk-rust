@@ -1,0 +1,561 @@
+{
+  "version": "2.0",
+  "metadata": {
+    "apiVersion": "2010-01-01",
+    "endpointPrefix": "bootstrap",
+    "protocol": "query",
+    "serviceAbbreviation": "Eucalyptus Services",
+    "serviceFullName": "Eucalyptus Cloud Service Management Service",
+    "serviceId": "euserv",
+    "signatureVersion": "v4",
+    "uid": "euserv-2010-01-01",
+    "xmlNamespace": "http://msgs.eucalyptus.com/4.4.5"
+  },
+  "operations": {
+    "DescribeAvailableServiceTypes": {
+      "name": "DescribeAvailableServiceTypes",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "DescribeAvailableServiceTypesRequest"
+      },
+      "output": {
+        "shape": "DescribeAvailableServiceTypesResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "DescribeServices": {
+      "name": "DescribeServices",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "DescribeServicesRequest"
+      },
+      "output": {
+        "shape": "DescribeServicesResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "DescribeServiceCertificates": {
+      "name": "DescribeServiceCertificates",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "DescribeServiceCertificatesRequest"
+      },
+      "output": {
+        "shape": "DescribeServiceCertificatesResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "ModifyService": {
+      "name": "ModifyService",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "ModifyServiceRequest"
+      },
+      "output": {
+        "shape": "ModifyServiceResponse"
+      },
+      "errors": [
+        {
+          "shape": "ModifyServiceException"
+        },
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "RegisterService": {
+      "name": "RegisterService",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "RegisterServiceRequest"
+      },
+      "output": {
+        "shape": "RegisterServiceResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    },
+    "DeregisterService": {
+      "name": "DeregisterService",
+      "http": {
+        "method": "POST",
+        "requestUri": "/"
+      },
+      "input": {
+        "shape": "DeregisterServiceRequest"
+      },
+      "output": {
+        "shape": "DeregisterServiceResponse"
+      },
+      "errors": [
+        {
+          "shape": "ServiceFailureException"
+        }
+      ]
+    }
+  },
+  "shapes": {
+    "Boolean": {
+      "type": "boolean"
+    },
+    "Integer": {
+      "type": "integer"
+    },
+    "String": {
+      "type": "string"
+    },
+    "CertificateFormatEnum": {
+      "type": "string",
+      "enum": [
+        "pem",
+        "der"
+      ]
+    },
+    "StateEnum": {
+      "type": "string",
+      "enum": [
+        "DISABLE",
+        "ENABLE",
+        "START",
+        "STOP"
+      ]
+    },
+    "ModifyServiceException": {
+      "type": "structure",
+      "members": {
+        "message": {
+          "shape": "String"
+        }
+      },
+      "error": {
+        "code": "ModifyServiceType",
+        "httpStatusCode": 400
+      },
+      "exception": true
+    },
+    "ServiceFailureException": {
+      "type": "structure",
+      "members": {
+        "message": {
+          "shape": "String"
+        }
+      },
+      "error": {
+        "code": "ServiceFailure",
+        "httpStatusCode": 500
+      },
+      "exception": true
+    },
+    "StringEntryList": {
+      "type": "list",
+      "member": {
+        "shape": "StringEntry",
+        "locationName": "item"
+      }
+    },
+    "StringEntry": {
+      "type": "structure",
+      "members": {
+        "entry": {
+          "shape": "String"
+        }
+      }
+    },
+    "ServiceStatusList": {
+      "type": "list",
+      "member": {
+        "shape": "ServiceStatus",
+        "locationName": "item"
+      }
+    },
+    "ServiceStatus": {
+      "type": "structure",
+      "members": {
+        "serviceId": {
+          "shape": "ServiceId"
+        },
+        "localState": {
+          "shape": "String"
+        }
+      }
+    },
+    "ServiceIdList": {
+      "type": "list",
+      "member": {
+        "shape": "ServiceId",
+        "locationName": "item"
+      }
+    },
+    "ServiceId": {
+      "type": "structure",
+      "members": {
+        "partition": {
+          "shape": "String"
+        },
+        "name": {
+          "shape": "String"
+        },
+        "fullName": {
+          "shape": "String"
+        },
+        "type": {
+          "shape": "String"
+        },
+        "host": {
+          "shape": "String"
+        },
+        "uri": {
+          "shape": "String"
+        }
+      }
+    },
+    "ServiceNameList": {
+      "type": "list",
+      "flattened": true,
+      "member": {
+        "shape": "ServiceName"
+      }
+    },
+    "ServiceName": {
+      "type": "string",
+      "max": 256,
+      "min": 1
+    },
+    "ServiceTypeList": {
+      "type": "list",
+      "member": {
+        "shape": "ServiceType",
+        "locationName": "item"
+      }
+    },
+    "ServiceType": {
+      "type": "structure",
+      "members": {
+        "componentName": {
+          "shape": "String"
+        },
+        "componentCapitalizedName": {
+          "shape": "String"
+        },
+        "description": {
+          "shape": "String"
+        },
+        "hasCredentials": {
+          "shape": "Boolean"
+        },
+        "registerable": {
+          "shape": "Boolean"
+        },
+        "requiresName": {
+          "shape": "Boolean"
+        },
+        "partitioned": {
+          "shape": "Boolean"
+        },
+        "publicApiService": {
+          "shape": "Boolean"
+        },
+        "serviceGroups": {
+          "shape": "StringEntryList"
+        },
+        "serviceGroupMembers": {
+          "shape": "StringEntryList"
+        }
+      }
+    },
+    "ServiceCertificateList": {
+      "type": "list",
+      "member": {
+        "shape": "ServiceCertificate",
+        "locationName": "item"
+      }
+    },
+    "ServiceCertificate": {
+      "type": "structure",
+      "members": {
+        "serviceType": {
+          "shape": "String"
+        },
+        "certificateUsage": {
+          "shape": "String"
+        },
+        "certificateFormat": {
+          "shape": "String"
+        },
+        "certificate": {
+          "shape": "String"
+        },
+        "certificateFingerprint": {
+          "shape": "String"
+        },
+        "certificateFingerprintDigest": {
+          "shape": "String"
+        }
+      }
+    },
+    "FilterList": {
+      "type": "list",
+      "flattened": true,
+      "member": {
+        "shape": "Filter"
+      }
+    },
+    "Filter": {
+      "type": "structure",
+      "required": [
+        "name",
+        "value"
+      ],
+      "members": {
+        "name": {
+          "shape": "String",
+          "locationName": "Name"
+        },
+        "values": {
+          "shape": "FilterValueList",
+          "locationName": "Value"
+        }
+      }
+    },
+    "FilterValueList": {
+      "type": "list",
+      "flattened": true,
+      "member": {
+        "shape": "String"
+      }
+    },
+    "ResponseMetadata": {
+      "type": "structure",
+      "members": {
+        "requestId": {
+          "shape": "String",
+          "locationName": "correlationId"
+        },
+        "return": {
+          "shape": "Boolean",
+          "locationName": "_return"
+        }
+      }
+    },
+    "RegistrationMetadata": {
+      "type": "structure",
+      "members": {
+        "reponseMetadata": {
+          "shape": "ResponseMetadata",
+          "locationName": "EmpyreanMessage"
+        },
+        "statusMessages": {
+          "shape": "StringEntryList"
+        }
+      }
+    },
+    "DescribeAvailableServiceTypesRequest": {
+      "type": "structure",
+      "members": {
+        "verbose": {
+          "shape": "Boolean",
+          "locationName": "Verbose"
+        }
+      }
+    },
+    "DescribeAvailableServiceTypesResponse": {
+      "type": "structure",
+      "locationName": "DescribeAvailableServiceTypesResponseType",
+      "members": {
+        "available": {
+          "shape": "ServiceTypeList"
+        }
+      }
+    },
+    "DescribeServicesRequest": {
+      "type": "structure",
+      "members": {
+        "filters": {
+          "shape": "FilterList",
+          "locationName": "Filter"
+        },
+        "listAll": {
+          "shape": "Boolean",
+          "locationName": "ListAll"
+        },
+        "services": {
+          "shape": "ServiceNameList",
+          "locationName": "ServiceName"
+        }
+      }
+    },
+    "DescribeServicesResponse": {
+      "type": "structure",
+      "locationName": "DescribeServicesResponseType",
+      "members": {
+        "metadata": {
+          "shape": "ResponseMetadata",
+          "locationName": "EmpyreanMessage"
+        },
+        "serviceStatuses": {
+          "shape": "ServiceStatusList"
+        }
+      }
+    },
+    "DescribeServiceCertificatesRequest": {
+      "type": "structure",
+      "members": {
+        "filters": {
+          "shape": "FilterList",
+          "locationName": "Filter"
+        },
+        "format": {
+          "shape": "CertificateFormatEnum",
+          "locationName": "Format"
+        },
+        "fingerprintDigest": {
+          "shape": "String",
+          "locationName": "FingerprintDigest"
+        }
+      }
+    },
+    "DescribeServiceCertificatesResponse": {
+      "type": "structure",
+      "locationName": "DescribeServiceCertificatesResponseType",
+      "members": {
+        "metadata": {
+          "shape": "ResponseMetadata",
+          "locationName": "EmpyreanMessage"
+        },
+        "serviceCertificates": {
+          "shape": "ServiceCertificateList"
+        }
+      }
+    },
+    "ModifyServiceRequest": {
+      "type": "structure",
+      "required": [
+        "name",
+        "state"
+      ],
+      "members": {
+        "name": {
+          "shape": "String",
+          "locationName": "Name"
+        },
+        "state": {
+          "shape": "StateEnum",
+          "locationName": "State"
+        }
+      }
+    },
+    "ModifyServiceResponse": {
+      "type": "structure",
+      "locationName": "ModifyServiceResponseType",
+      "members": {
+        "metadata": {
+          "shape": "ResponseMetadata",
+          "locationName": "EmpyreanMessage"
+        }
+      }
+    },
+    "RegisterServiceRequest": {
+      "type": "structure",
+      "required": [
+        "name",
+        "type",
+        "host",
+        "port"
+      ],
+      "members": {
+        "name": {
+          "shape": "String",
+          "locationName": "Name"
+        },
+        "type": {
+          "shape": "String",
+          "locationName": "Type"
+        },
+        "partition": {
+          "shape": "String",
+          "locationName": "Partition"
+        },
+        "host": {
+          "shape": "String",
+          "locationName": "Host"
+        },
+        "port": {
+          "shape": "Integer",
+          "locationName": "Port"
+        }
+      }
+    },
+    "RegisterServiceResponse": {
+      "type": "structure",
+      "locationName": "RegisterServiceResponseType",
+      "members": {
+        "registrationMetadata": {
+          "shape": "RegistrationMetadata",
+          "locationName": "ServiceRegistrationMessage"
+        },
+        "registeredServices": {
+          "shape": "ServiceIdList"
+        }
+      }
+    },
+    "DeregisterServiceRequest": {
+      "type": "structure",
+      "required": [
+        "name"
+      ],
+      "members": {
+        "name": {
+          "shape": "String",
+          "locationName": "Name"
+        },
+        "type": {
+          "shape": "String",
+          "locationName": "Type"
+        }
+      }
+    },
+    "DeregisterServiceResponse": {
+      "type": "structure",
+      "locationName": "DeregisterServiceResponseType",
+      "members": {
+        "registrationMetadata": {
+          "shape": "RegistrationMetadata",
+          "locationName": "ServiceRegistrationMessage"
+        },
+        "deregisteredServices": {
+          "shape": "ServiceIdList"
+        }
+      }
+    }
+  }
+}

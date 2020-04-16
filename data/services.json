@@ -1,0 +1,14 @@
+{
+  "euprop": {
+    "version": "0.43.0",
+    "coreVersion": "0.43.0",
+    "protocolVersion": "2010-01-01",
+    "baseTypeName": "Properties"
+  },
+  "euserv": {
+    "version": "0.43.0",
+    "coreVersion": "0.43.0",
+    "protocolVersion": "2010-01-01",
+    "baseTypeName": "Services"
+  }
+}
