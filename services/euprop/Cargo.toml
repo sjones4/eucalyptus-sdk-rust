@@ -1,0 +1,43 @@
+[package]
+name = "eucalyptus_sdk_euprop"
+version = "0.1.0"
+authors = ["Steve Jones <steve@iaascream.cloud>"]
+edition = "2018"
+
+[package.metadata.docs.rs]
+targets = []
+
+[build-dependencies]
+
+[dependencies]
+async-trait = "0.1"
+bytes = "0.5"
+serde_urlencoded = "0.6"
+xml-rs = "0.8"
+rusoto_core = "0.43.0"
+
+[dependencies.futures]
+version = "0.3"
+
+[dependencies.serde]
+version = "1.0.2"
+optional = true
+
+[dependencies.serde_derive]
+version = "1.0.2"
+optional = true
+
+[dev-dependencies]
+tokio = "0.2"
+
+[dev-dependencies.rusoto_mock]
+version = "0.43.0"
+path = "../../../mock"
+default-features = false
+
+[features]
+default = ["native-tls"]
+deserialize_structs = ["bytes/serde", "serde", "serde_derive"]
+native-tls = ["rusoto_core/native-tls"]
+rustls = ["rusoto_core/rustls"]
+serialize_structs = ["bytes/serde", "serde", "serde_derive"]
